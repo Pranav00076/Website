@@ -8,6 +8,8 @@
 
 Professional static website for the DemonDie organization.
 
+Designed with Google Stitch, Connected by hands, Styled with TailwindCss.
+
 ## Current Project
 
 ### Demon Tech Roadmap
@@ -18,12 +20,6 @@ Demon Tech Roadmap is an open-source platform designed to help learners navigate
 
 - Repository: [github.com/Demon-Die/DemonTechRoadmap](https://github.com/Demon-Die/DemonTechRoadmap)
 - Website: [demon-tech-roadmap.vercel.app](https://demon-tech-roadmap.vercel.app/)
-
-## Files
-
-- `index.html` contains the page structure and links.
-- `style.css` contains the responsive visual design.
-- `assets/demondie-hero.png` is the generated hero image used on the homepage.
 
 ## Local Development
 
