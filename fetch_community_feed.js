@@ -128,27 +128,41 @@
   }
 
   // 2. Fallback: REST search api for issues and pull requests in the org (representing discussions)
+  let data;
   try {
     const headers = token ? { Authorization: `token ${token}` } : {};
-    const resp = await fetch('https://api.github.com/search/issues?q=org:Demon-Die+sort:created-desc', { headers });
+    let resp = await fetch('https://api.github.com/search/issues?q=org:Demon-Die+sort:created-desc', { headers });
+    if (!resp.ok && resp.status === 401 && token) {
+      console.warn('GitHub search issues returned 401 with token, retrying anonymously...');
+      resp = await fetch('https://api.github.com/search/issues?q=org:Demon-Die+sort:created-desc');
+    }
     if (!resp.ok) throw new Error('GitHub search issues failed');
-    const data = await resp.json();
-    const items = data.items || [];
-    if (items.length === 0) {
-      container.innerHTML = '<p class="text-on-surface-variant text-code-sm">No discussions or activity found.</p>';
+    data = await resp.json();
+  } catch (e) {
+    try {
+      console.warn('Authenticated search failed, trying final anonymous request...', e);
+      const resp = await fetch('https://api.github.com/search/issues?q=org:Demon-Die+sort:created-desc');
+      if (!resp.ok) throw new Error('Anonymous backup search failed');
+      data = await resp.json();
+    } catch (err) {
+      console.error('Failed to load community feed:', err);
+      container.innerHTML = '<p class="text-on-surface-variant text-code-sm">Unable to load community feed.</p>';
       return;
     }
-    items.slice(0, 8).forEach(item => {
-      renderItem(
-        item.user?.login || 'anonymous',
-        item.user?.avatar_url,
-        item.title,
-        getTimeAgo(item.created_at),
-        item.html_url
-      );
-    });
-  } catch (e) {
-    console.error('Failed to load community feed:', e);
-    container.innerHTML = '<p class="text-on-surface-variant text-code-sm">Unable to load community feed.</p>';
   }
+
+  const items = data.items || [];
+  if (items.length === 0) {
+    container.innerHTML = '<p class="text-on-surface-variant text-code-sm">No discussions or activity found.</p>';
+    return;
+  }
+  items.slice(0, 8).forEach(item => {
+    renderItem(
+      item.user?.login || 'anonymous',
+      item.user?.avatar_url,
+      item.title,
+      getTimeAgo(item.created_at),
+      item.html_url
+    );
+  });
 })();

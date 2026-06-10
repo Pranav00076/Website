@@ -65,7 +65,7 @@ Distributed under the **MIT License**. See the `LICENSE` file for details.
 ---
 
 ## 📧 Contact & Community
-- **Website:** https://derrondie.org (placeholder)
+- **Website:** https://demondie.org (placeholder)
 - **GitHub Org:** https://github.com/Demon-Die
 - **Discord:** https://discord.gg/4waT35Hxs
 

@@ -11,15 +11,32 @@
   }
 
   const token = window.env?.GIT_DEMONDIE_ALL || window.env?.GITHUB_TOKEN || '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';
-  const headers = token ? { Authorization: `token ${token}` } : {};
-
+  
+  let events;
   try {
-    const resp = await fetch('https://api.github.com/orgs/Demon-Die/events', { headers });
+    const headers = token ? { Authorization: `token ${token}` } : {};
+    let resp = await fetch('https://api.github.com/orgs/Demon-Die/events', { headers });
+    if (!resp.ok && resp.status === 401 && token) {
+      console.warn('GitHub events request returned 401 with token, retrying anonymously...');
+      resp = await fetch('https://api.github.com/orgs/Demon-Die/events');
+    }
     if (!resp.ok) throw new Error('GitHub events request failed');
-    const events = await resp.json();
+    events = await resp.json();
+  } catch (e) {
+    try {
+      console.warn('Authenticated fetch failed, trying final anonymous request...', e);
+      const resp = await fetch('https://api.github.com/orgs/Demon-Die/events');
+      if (!resp.ok) throw new Error('Anonymous backup request failed');
+      events = await resp.json();
+    } catch (err) {
+      console.error('Failed to load recent activity:', err);
+      container.innerHTML = '<p class="text-on-surface-variant text-code-sm">Unable to load recent activity.</p>';
+      return;
+    }
+  }
 
-    // Clear static placeholders/loading text
-    container.innerHTML = '';
+  // Clear static placeholders/loading text
+  container.innerHTML = '';
 
     if (!events || events.length === 0) {
       container.innerHTML = '<p class="text-on-surface-variant text-code-sm">No recent activity found.</p>';

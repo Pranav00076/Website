@@ -342,7 +342,7 @@
 </div>
 </div>
 <!-- Radial Hero Graphic -->
-    <img src="./image.png" >
+    <img src="./Image.png" >
 </section>
 <!-- Stats Row -->
 <section class="border border-surface-container bg-surface mb-section-gap relative overflow-hidden glow-active">
@@ -844,18 +844,25 @@ document.addEventListener('DOMContentLoaded', () => {
     window.env = {};
     (async function() {
       try {
-        const response = await fetch('.env');
-        if (response.ok) {
-          const text = await response.text();
-          text.split('\n').forEach(line => {
-            const parts = line.split('=');
-            if (parts.length >= 2) {
-              const key = parts[0].trim();
-              const val = parts.slice(1).join('=').trim().replace(/^["']|["']$/g, '');
-              window.env[key] = val;
-            }
-          });
+        const responseJson = await fetch('env.json');
+        if (responseJson.ok) {
+          window.env = await responseJson.json();
+        } else {
+          const responseEnv = await fetch('.env');
+          if (responseEnv.ok) {
+            const text = await responseEnv.text();
+            text.split('\n').forEach(line => {
+              const parts = line.split('=');
+              if (parts.length >= 2) {
+                const key = parts[0].trim();
+                const val = parts.slice(1).join('=').trim().replace(/^["']|["']$/g, '');
+                window.env[key] = val;
+              }
+            });
+          }
         }
+      } catch (e) {
+        console.warn('Environment loading error:', e);
       } finally {
         window.envLoaded = true;
         window.dispatchEvent(new CustomEvent('envLoaded'));
@@ -902,8 +909,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="flex flex-col gap-2">
 <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-code-sm" href="https://github.com/Demon-Die" target="_blank">GitHub</a>
 <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-code-sm" href="https://discord.gg/4waT35Hxs" target="_blank">Discord</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-code-sm" href="./404err.html">Twitter (coming soon)</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-code-sm" href="./404err.html">LinkedIn (coming soon)</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-code-sm" href="https://x.com/DemonDieOrg" target="_blank">Twitter</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-code-sm" href="https://www.linkedin.com/in/demondie-org/" target="_blank">LinkedIn</a>
 </div></div></div></footer>
 
 <script>
