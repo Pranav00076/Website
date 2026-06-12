@@ -166,6 +166,25 @@ class Particle {
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+        // Preload cursor assets to prevent browser latency/flicker on state changes
+        const preloadNormal = document.createElement('link');
+        preloadNormal.rel = 'preload';
+        preloadNormal.as = 'image';
+        preloadNormal.href = './cursor/Cursor_64x64.png';
+        document.head.appendChild(preloadNormal);
+
+        const preloadActive = document.createElement('link');
+        preloadActive.rel = 'preload';
+        preloadActive.as = 'image';
+        preloadActive.href = './cursor/CursorActive_64x64.png';
+        document.head.appendChild(preloadActive);
+
+        // Backup JS preloading
+        const imgNormal = new Image();
+        imgNormal.src = './cursor/Cursor_64x64.png';
+        const imgActive = new Image();
+        imgActive.src = './cursor/CursorActive_64x64.png';
+
         const cursorStyle = document.createElement('style');
         cursorStyle.textContent = `
             html, body, a, button, select, [role="button"] {
