@@ -155,7 +155,25 @@
       mobileToggle.parentNode.insertBefore(authWidget, mobileToggle);
     }
 
+    const addBlogBtn = document.getElementById('add-blog-btn');
+
     if (user) {
+      if (addBlogBtn) {
+        const displayName = (user.displayName || '').toLowerCase().replace(/\\s+/g, '');
+        const emailPrefix = (user.email || '').split('@')[0].toLowerCase();
+        const screenName = (user.reloadUserInfo && user.reloadUserInfo.screenName) ? user.reloadUserInfo.screenName.toLowerCase() : '';
+        const allowedAdmins = ['rishibyte', 'pranav00076', 'sharanyobanerjee', 'yuvraj', 'yuvraj-sarathe'];
+        
+        const isAdmin = allowedAdmins.includes(displayName) || allowedAdmins.includes(emailPrefix) || allowedAdmins.includes(screenName);
+        if (isAdmin) {
+          addBlogBtn.classList.remove('hidden');
+          addBlogBtn.classList.add('flex');
+        } else {
+          addBlogBtn.classList.add('hidden');
+          addBlogBtn.classList.remove('flex');
+        }
+      }
+
       const avatarUrl = user.photoURL || 'https://raw.githubusercontent.com/Demon-Die/Website/refs/heads/main/assets/demondie-logo.webp';
       authWidget.innerHTML = `
         <div class="flex items-center gap-3">
@@ -170,6 +188,11 @@
         logoutBtn.addEventListener('click', () => auth.signOut());
       }
     } else {
+      if (addBlogBtn) {
+        addBlogBtn.classList.add('hidden');
+        addBlogBtn.classList.remove('flex');
+      }
+
       authWidget.innerHTML = `
         <button id="auth-login-trigger" class="flex items-center gap-2 px-3 py-1.5 border border-primary hover:bg-primary/10 transition-all font-label-mono text-[10px] sm:text-xs text-primary tracking-widest cursor-pointer">
           <span class="material-symbols-outlined text-[14px]">login</span>
