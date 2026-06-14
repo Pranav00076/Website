@@ -166,7 +166,7 @@ class Particle {
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-        // Preload cursor assets to prevent browser latency/flicker on state changes
+        
         const preloadNormal = document.createElement('link');
         preloadNormal.rel = 'preload';
         preloadNormal.as = 'image';
@@ -179,7 +179,7 @@ class Particle {
         preloadActive.href = './cursor/CursorActiveNew.png?v=2';
         document.head.appendChild(preloadActive);
 
-        // Backup JS preloading
+        
         const imgNormal = new Image();
         imgNormal.src = './cursor/Cursor_64x64.png';
         const imgActive = new Image();

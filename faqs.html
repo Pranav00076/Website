@@ -12,123 +12,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-tertiary": "#313030",
-                        "surface-container-high": "#292a2a",
-                        "surface-variant": "#343535",
-                        "on-tertiary-fixed-variant": "#474646",
-                        "on-secondary-fixed": "#1c1b1b",
-                        "inverse-surface": "#e3e2e2",
-                        "secondary-fixed-dim": "#c8c6c5",
-                        "secondary": "#c8c6c5",
-                        "surface-container-lowest": "#0d0e0f",
-                        "secondary-fixed": "#e5e2e1",
-                        "primary-container": "#ff544b",
-                        "tertiary": "#c8c6c5",
-                        "on-surface-variant": "#e7bcb8",
-                        "surface": "#0f0f0f",
-                        "on-primary-fixed-variant": "#93000c",
-                        "surface-dim": "#121414",
-                        "primary": "#ff3131",
-                        "on-primary-container": "#5c0005",
-                        "error-container": "#93000a",
-                        "secondary-container": "#474746",
-                        "on-error-container": "#ffdad6",
-                        "surface-bright": "#383939",
-                        "tertiary-container": "#929090",
-                        "on-error": "#690005",
-                        "background": "#000000",
-                        "on-secondary": "#313030",
-                        "on-surface": "#e3e2e2",
-                        "error": "#ffb4ab",
-                        "on-secondary-fixed-variant": "#474746",
-                        "on-primary-fixed": "#410002",
-                        "primary-fixed": "#ffdad6",
-                        "tertiary-fixed": "#e5e2e1",
-                        "primary-fixed-dim": "#ffb4ab",
-                        "inverse-primary": "#c00014",
-                        "surface-tint": "#ffb4ab",
-                        "surface-container-highest": "#343535",
-                        "surface-container": "#1a1a1a",
-                        "on-primary": "#000000",
-                        "on-background": "#e3e2e2",
-                        "outline-variant": "#1a1a1a",
-                        "inverse-on-surface": "#2f3131",
-                        "outline": "#1a1a1a",
-                        "surface-container-low": "#1a1c1c",
-                        "tertiary-fixed-dim": "#c8c6c5",
-                        "on-tertiary-fixed": "#1c1b1b",
-                        "on-secondary-container": "#b7b5b4",
-                        "on-tertiary-container": "#2a2a29"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0rem",
-                        "lg": "0rem",
-                        "xl": "0rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "gutter": "24px",
-                        "section-gap": "80px",
-                        "margin-mobile": "16px",
-                        "unit": "4px",
-                        "container-max": "1280px"
-                    },
-                    "fontFamily": {
-                        "code-sm": ["JetBrains Mono", "monospace"],
-                        "label-mono": ["JetBrains Mono", "monospace"],
-                        "headline-md-mobile": ["Inter", "sans-serif"],
-                        "body-base": ["JetBrains Mono", "monospace"],
-                        "display-lg": ["Inter", "sans-serif"],
-                        "headline-md": ["Inter", "sans-serif"]
-                    },
-                    "fontSize": {
-                        "code-sm": ["12px", { "lineHeight": "1.5", "fontWeight": "400" }],
-                        "label-mono": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500" }],
-                        "headline-md-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
-                        "body-base": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "display-lg": ["56px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }]
-                    }
-                }
-            }
-        }
-    </script>
-<style>
-        /* Cyber-Terminal Grid Background */
-        body {
-            background-color: #000000;
-            background-image: 
-                linear-gradient(to right, #1a1a1a 1px, transparent 1px),
-                linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-        
-        /* Custom styles for terminal glow effects that can't be purely tokenized */
-        .terminal-glow {
-            box-shadow: 0 0 8px rgba(255, 49, 49, 0.3);
-        }
-        .text-glow {
-            text-shadow: 0 0 8px rgba(255, 49, 49, 0.5);
-        }
-        .crt-scanline {
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
-            background-size: 100% 4px;
-            pointer-events: none;
-        }
-    </style>
+<script src="./assets/tailwind-theme.js"></script>
+<link rel="stylesheet" href="./assets/common-styles.css">
 </head>
-<body class="bg-background text-on-background min-h-screen flex flex-col font-body-base text-body-base relative">
-<!-- Optional CRT Overlay for thematic depth -->
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-base text-body-base relative grid-bg">
+
 <div class="fixed inset-0 z-50 crt-scanline pointer-events-none mix-blend-overlay opacity-30"></div>
-<!-- TopNavBar -->
+
 <nav class="bg-background dark:bg-background z-40 relative border-b border-surface-variant flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto flat no shadows docked full-width top-0">
-<!-- Brand Logo -->
+
 <a class="text-headline-md font-headline-md font-bold text-on-surface dark:text-on-surface tracking-tight hover:text-primary transition-colors flex items-center gap-2" href="./index.html">
 <span class="text-primary font-code-sm text-code-sm">&gt;_</span>
     DemonDie
@@ -147,9 +39,9 @@
             </button></a>
 </div>
 </nav>
-<!-- Main Content Canvas -->
+
 <main class="flex-1 w-full max-w-container-max mx-auto px-gutter py-section-gap relative z-10 flex flex-col gap-12">
-<!-- Terminal Header -->
+
 <header class="flex flex-col gap-4 border-b border-surface-variant pb-8">
 <div class="flex items-center gap-2 text-primary font-code-sm text-code-sm mb-2">
 <span class="material-symbols-outlined text-sm">terminal</span>
@@ -163,9 +55,9 @@
                 Consult the documented procedures below for operational clarity within the DemonDie framework.
             </p>
 </header>
-<!-- Bento Grid Layout for FAQs -->
+
 <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-<!-- Context Sidebar -->
+
 <aside class="col-span-1 lg:col-span-3 flex flex-col gap-6">
 <div class="bg-surface-container-lowest border border-surface-variant p-6 rounded-none flex flex-col gap-4">
 <h3 class="font-label-mono text-label-mono text-primary uppercase border-b border-surface-variant pb-2 flex items-center gap-2">
@@ -180,9 +72,9 @@
 </div>
 
 </aside>
-<!-- Accordion List -->
+
 <div class="col-span-1 lg:col-span-9 flex flex-col gap-unit" id="faq-container">
-<!-- FAQ Item 1 -->
+
 <div class="faq-item bg-surface-container-low border border-surface-variant rounded-none transition-all duration-300">
 <button class="w-full flex items-center justify-between p-6 outline-none focus:bg-surface-container-highest group" onclick="toggleFaq(this)">
 <div class="flex items-center gap-4 text-left">
@@ -197,7 +89,7 @@
 </div>
 </div>
 </div>
-<!-- FAQ Item 2 -->
+
 <div class="faq-item bg-surface-container-low border border-surface-variant rounded-none transition-all duration-300">
 <button class="w-full flex items-center justify-between p-6 outline-none focus:bg-surface-container-highest group" onclick="toggleFaq(this)">
 <div class="flex items-center gap-4 text-left">
@@ -212,7 +104,7 @@
 </div>
 </div>
 </div>
-<!-- FAQ Item 3 -->
+
 <div class="faq-item bg-surface-container-low border border-surface-variant rounded-none transition-all duration-300">
 <button class="w-full flex items-center justify-between p-6 outline-none focus:bg-surface-container-highest group" onclick="toggleFaq(this)">
 <div class="flex items-center gap-4 text-left">
@@ -227,7 +119,7 @@
 </div>
 </div>
 </div>
-<!-- FAQ Item 4 -->
+
 <div class="faq-item bg-surface-container-low border border-surface-variant rounded-none transition-all duration-300">
 <button class="w-full flex items-center justify-between p-6 outline-none focus:bg-surface-container-highest group" onclick="toggleFaq(this)">
 <div class="flex items-center gap-4 text-left">
@@ -245,7 +137,7 @@
 </div>
 </section>
 </main>
-<!-- Footer -->
+
 <footer class="bg-background dark:bg-background border-t border-surface-variant grid grid-cols-1 md:grid-cols-4 gap-gutter px-gutter py-section-gap max-w-container-max mx-auto w-full relative z-40 flat no shadows full-width">
 <div class="flex flex-col gap-4 col-span-1 md:col-span-4 lg:col-span-1">
 <span class="text-headline-md font-headline-md font-bold text-primary">DemonDie</span>
