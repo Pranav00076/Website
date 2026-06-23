@@ -33,10 +33,22 @@ try {
   // .env might not exist on Vercel, which is fine
 }
 
+// Fallback default public keys for Firebase
+const defaultPublicKeys = {
+  FIREBASE_API_KEY: 'AIzaSyBiNIObFcI06vECfiBivu967NLq0EbxNlg',
+  FIREBASE_AUTH_DOMAIN: 'demondie-web-auth-2026.firebaseapp.com',
+  FIREBASE_PROJECT_ID: 'demondie-web-auth-2026',
+  FIREBASE_STORAGE_BUCKET: 'demondie-web-auth-2026.firebasestorage.app',
+  FIREBASE_MESSAGING_SENDER_ID: '1003258119714',
+  FIREBASE_APP_ID: '1:1003258119714:web:e10c18f3955a9862242c7b'
+};
+
 // Override with process.env (Vercel Environment Variables)
 envKeys.forEach(key => {
   if (process.env[key]) {
     envData[key] = process.env[key];
+  } else if (defaultPublicKeys[key]) {
+    envData[key] = defaultPublicKeys[key];
   }
 });
 
